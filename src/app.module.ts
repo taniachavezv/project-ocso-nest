@@ -1,21 +1,27 @@
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { EmployeesModule } from './employees/employees.module.js';
-
-export const { ObserveModule, ObserveInstrument } = createObserveModule();
+import { ProductsModule } from './products/products.module.js';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    // Distributed tracing, auto-correlated logs, request/job metrics, error
-    // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
-    ObserveModule.forRoot({
-      appKey: 'YOUR_APP_KEY',
-      appSecret: 'YOUR_APP_SECRET',
-      serviceId: 'ocso-project',
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: process.env.host,
+      port: 5432,
+      username: "postgres",
+      password: process.env.pass,
+      database: process.env.name,
+      entities: [],
+      autoLoadEntities: true,
+      synchronize: true,
     }),
     EmployeesModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
