@@ -5,6 +5,10 @@ import { AppService } from './app.service.js';
 import { EmployeesModule } from './employees/employees.module.js';
 import { ProductsModule } from './products/products.module.js';
 import { ConfigModule } from '@nestjs/config';
+import { ProvidersModule } from './providers/providers.module.js';
+import { ManagersModule } from './managers/managers.module.js';
+import { LocationsModule } from './locations/locations.module.js';
+import { RegionModule } from './region/region.module.js';
 
 @Module({
   imports: [
@@ -22,6 +26,10 @@ import { ConfigModule } from '@nestjs/config';
     }),
     EmployeesModule,
     ProductsModule,
+    ProvidersModule,
+    ManagersModule,
+    LocationsModule,
+    RegionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

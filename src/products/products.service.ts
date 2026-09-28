@@ -18,7 +18,12 @@ export class ProductsService {
   }
 
   async findAll() {
-    return await this.productRepository.find();
+    return this.productRepository.find({
+      loadEagerRelations: true,
+      relations: {
+        provider: true,
+      } 
+    });
   }
 
   async findOne(id: string) {
@@ -30,9 +35,11 @@ export class ProductsService {
   }
 
   async findByProvider(id: string) {
-    const productsFound = await this.productRepository.findBy({ provider: id } as any);
-    if (productsFound.length === 0) throw new NotFoundException(`No se encontraron productos para el proveedor ${id}`);
-    return productsFound;
+    return this.productRepository.findBy({
+      provider: {
+        providerId: id,
+      }
+    })
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
