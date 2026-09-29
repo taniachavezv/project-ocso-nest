@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional, IsString, MaxLength } from "class-validator";
-import { Provider } from '../entities/provider.entity';
+import { Provider } from "../entities/provider.entity.js";
 
 export class CreateProviderDto extends Provider {
     @IsString()

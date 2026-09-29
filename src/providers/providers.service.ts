@@ -38,7 +38,11 @@ export class ProvidersService {
     const product = await this.providerRepository.preload({
       providerId: id,
       ...updateProviderDto
-    })
+    });
+
+    if (!product) {
+    throw new NotFoundException(`Provider with id ${id} not found`);
+  }
     return this.providerRepository.save(product);
   }
 
