@@ -10,6 +10,8 @@ import { ManagersModule } from './managers/managers.module.js';
 import { LocationsModule } from './locations/locations.module.js';
 import { RegionModule } from './region/region.module.js';
 import { AuthModule } from './auth/auth.module.js';
+import { JwtModule } from '@nestjs/jwt';
+import { EXPIRES_IN, JWT_KEY } from './auth/constants/jwt.constants.js';
 
 @Module({
   imports: [
