@@ -6,6 +6,8 @@ import { CreateUserDto } from './dto/create-user.dto.js';
 import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto.js';
 import * as bcrypt from "bcrypt"
+import { UpdateUserDto } from './dto/update-user.dto.js';
+import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -38,5 +40,18 @@ export class AuthService {
 
   const token = this.jwtService.sign(payload);
   return { token };
+  }
+  async updateUser(userEmail: string, updateUserDto: UpdateUserDto){
+    const newUserData = await this.userRepository.preload({
+      userEmail,
+      ...updateUserDto
+
+    });
+    if (!newUserData) {
+        throw new NotFoundException(`Usuario con email ${userEmail} no encontrado`);
+    }
+
+    // Usamos await para esperar a que termine de guardar
+    return await this.userRepository.save(newUserData);
 }
 }

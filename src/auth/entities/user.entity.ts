@@ -1,10 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Manager } from "../../managers/entities/manager.entity.js";
+import { Employee } from "../../employees/entities/employee.entity.js";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from "typeorm";
 
 @Entity()
 export class User{
     @PrimaryGeneratedColumn('uuid')
     userId: string;
-    @Column('text')
+    @Column('text', {
+        unique: true,
+    })
     userEmail: string;
     @Column('text')
     userPassword: string;
@@ -12,5 +16,11 @@ export class User{
         default: ["Employee"]
     })
     userRoles: string[];
+
+    @OneToOne(() => Manager)
+    manager: Manager;
+
+    @OneToOne(() => Employee)
+    employee: Employee;
 
 }

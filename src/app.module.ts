@@ -1,7 +1,5 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
 import { EmployeesModule } from './employees/employees.module.js';
 import { ProductsModule } from './products/products.module.js';
 import { ConfigModule } from '@nestjs/config';
@@ -10,9 +8,6 @@ import { ManagersModule } from './managers/managers.module.js';
 import { LocationsModule } from './locations/locations.module.js';
 import { RegionModule } from './region/region.module.js';
 import { AuthModule } from './auth/auth.module.js';
-import { JwtModule } from '@nestjs/jwt';
-import { EXPIRES_IN, JWT_KEY } from './auth/constants/jwt.constants.js';
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -35,7 +30,7 @@ import { EXPIRES_IN, JWT_KEY } from './auth/constants/jwt.constants.js';
     RegionModule,
     AuthModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
